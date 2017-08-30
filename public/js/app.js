@@ -21,7 +21,6 @@ class InventoryFormList extends React.Component {
             </div>
         );
          this.setState({forms:this.state.forms});
-
     }
     
     
@@ -36,6 +35,9 @@ class InventoryFormList extends React.Component {
                             onAdd={this.addNewForm}
                         />
                         {this.state.forms}
+                        <AddFormButton 
+                        onAdd={this.addNewForm}
+                        />  
                     </div>
                 </div>
                 <SendButton />
@@ -73,9 +75,6 @@ class NextInventoryForm extends React.Component {
                             <label>Amount <input type='text' name='sku' placeholder='Input amount here.' /> </label>
                         </div>
                     </div>
-                <AddFormButton 
-                    onAdd={this.props.onAdd}
-                />  
                 </div>
             </div>
         );
