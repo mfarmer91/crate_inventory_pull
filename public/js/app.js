@@ -2,14 +2,14 @@ class InventoryFormList extends React.Component {
     render() {
         return (
             <div>
-                <EditableInventoryForm />,
+                <InventoryForm />,
                 <SendButton />
             </div>
         );
     }
 }
 
-class EditableInventoryForm extends React.Component {
+class InventoryForm extends React.Component {
     render() {
         return (
             <div className='ui centered card'>
@@ -21,7 +21,30 @@ class EditableInventoryForm extends React.Component {
                         <div className='field'>
                             <label>Amount <input type='text' name='sku' placeholder='Input amount here.' /> </label>
                         </div>
-                        <AddFormButton />
+                        <div>
+                            <NextInventoryForm />
+                            <AddFormButton />  
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+}
+
+class NextInventoryForm extends React.Component {
+    render() {
+        return (
+            <div>
+                <div className="ui section divider"></div>
+                <div className='content'>
+                    <div className='ui form'>
+                        <div className='field'>
+                            <label>SKU <input type='text' name='sku' placeholder='Input SKU here.' /> </label>
+                        </div>
+                        <div className='field'>
+                            <label>Amount <input type='text' name='sku' placeholder='Input amount here.' /> </label>
+                        </div>
                     </div>
                 </div>
             </div>
