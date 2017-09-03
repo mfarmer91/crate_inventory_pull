@@ -32,13 +32,13 @@ class InventoryForm extends React.Component {
         return (
             <div>
                 <div className='ui cards'>
-                    <div className='card'>
+                    <div id='card_one' className='card'>
                         <div className='content'>
                             <div className='ui form' onSubmit={this.onFormSubmit}>
                                 <form onSubmit={this.onFormSubmit}>
-                                    <label>SKU <input type='text' name='sku'        placeholder='Input SKU here.' value={this.state.fields.sku} onChange={this.updateFormInput} /> </label>
+                                    <label>SKU <input id='sku_input' type='text' name='sku'        placeholder='Input SKU here.' value={this.state.fields.sku} onChange={this.updateFormInput} /> </label>
                                     <label>Amount <input type='text' name='amount' placeholder='Input amount here.' value={this.state.fields.amount} onChange={this.updateFormInput} /> </label>
-                                <input type='submit' />
+                                <input id='add_button' className='ui blue basic button' type='submit' value='Add To List' />
                                 </form>
                             </div>
                         </div>
@@ -53,6 +53,7 @@ class InventoryForm extends React.Component {
                                 </div>
                         </div>  
                 </div>
+<SendButton />
             </div>                  
                
         );
@@ -64,9 +65,9 @@ class InventoryForm extends React.Component {
 class SendButton extends React.Component {
     render() {
         return(
-            <div>
-                <div className='ui basic content center aligned segment'>
-                  <button className='ui basic blue button icon'>
+            <div id='send_button'>
+                <div className='ui basic content right aligned segment'>
+                  <button className='ui basic green button icon'>
                     <i className="checkmark icon"></i>
                     Send to BOH
                   </button>
