@@ -1,101 +1,65 @@
-class InventoryFormList extends React.Component {
-    
-    state = {
-        forms: [],
-    }
-
-     addNewForm = () => {
-        this.state.forms.push(
-            <div>
-                <div className="ui section divider"></div>
-                <div className='content'>
-                    <div className='ui form'>
-                        <div className='field'>
-                            <label>SKU <input type='text' name='sku' placeholder='Input SKU here.' /> </label>
-                        </div>
-                        <div className='field'>
-                            <label>Amount <input type='text' name='sku' placeholder='Input amount here.' /> </label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        );
-         this.setState({forms:this.state.forms});
-    }
-    
-    
-    render() {
-        
-        return (
-            <div>
-                <div className='ui centered card'>
-                    <div className='content'>
-                        <InventoryForm />
-                        <NextInventoryForm 
-                            onAdd={this.addNewForm}
-                        />
-                        {this.state.forms}
-                        <AddFormButton 
-                        onAdd={this.addNewForm}
-                        />  
-                    </div>
-                </div>
-                <SendButton />
-            </div>
-        );
-    }
-}
 
 class InventoryForm extends React.Component {
-    render() {
-        return (
-            <div className='ui form'>
-                <div className='field'>
-                    <label>SKU <input type='text' name='sku' placeholder='Input SKU here.' /> </label>
-                </div>
-                <div className='field'>
-                    <label>Amount <input type='text' name='sku' placeholder='Input amount here.' /> </label>
-                </div>
-            </div>
-        );
-    }
-}
+    
+    state = {
+        items: [],
+        fields: {
+            sku:'',
+            amount:'',
+        }
+    };
 
-class NextInventoryForm extends React.Component {    
+  updateFormInput = (e) => {
+        const fields = this.state.fields; 
+        fields[e.target.name] = e.target.value;
+        this.setState({ fields });
+    };
+
+  onFormSubmit = (e) => {
+      const items = [...this.state.items,
+                    this.state.fields];
+      this.setState({   items,
+                        fields: {
+                            sku:'',
+                            amount:'',
+                        }
+                    });
+      e.preventDefault();
+      
+  };
+
     render() {
         return (
             <div>
-                <div className="ui section divider"></div>
-                <div className='content'>
-                    <div className='ui form'>
-                        <div className='field'>
-                            <label>SKU <input type='text' name='sku' placeholder='Input SKU here.' /> </label>
-                        </div>
-                        <div className='field'>
-                            <label>Amount <input type='text' name='sku' placeholder='Input amount here.' /> </label>
+                <div className='ui cards'>
+                    <div className='card'>
+                        <div className='content'>
+                            <div className='ui form' onSubmit={this.onFormSubmit}>
+                                <form onSubmit={this.onFormSubmit}>
+                                    <label>SKU <input type='text' name='sku'        placeholder='Input SKU here.' value={this.state.fields.sku} onChange={this.updateFormInput} /> </label>
+                                    <label>Amount <input type='text' name='amount' placeholder='Input amount here.' value={this.state.fields.amount} onChange={this.updateFormInput} /> </label>
+                                <input type='submit' />
+                                </form>
+                            </div>
                         </div>
                     </div>
+                        <div id='item_list' className='card'>
+                                <div className='content'>
+                                    <ul>
+                                        { this.state.items.map (({sku, amount }, i) => 
+                                            <li key={i}>{ sku } ({ amount })</li> 
+                                        ) }
+                                    </ul>
+                                </div>
+                        </div>  
                 </div>
-            </div>
+            </div>                  
+               
         );
     }
 }
 
-class AddFormButton extends React.Component {
-    render() {
-        return(
-            <div>
-                <div className="ui divider"></div>
-                <div className="ui center aligned">
-                    <button className="ui basic green button icon" onClick={this.props.onAdd}>
-                        <i className="plus square outline icon"></i>
-                        Add SKU
-                    </button>
-                </div>
-            </div>
-        );
-    }
-}
+
 
 class SendButton extends React.Component {
     render() {
@@ -113,6 +77,6 @@ class SendButton extends React.Component {
 }
 
 ReactDOM.render(
-  <InventoryFormList />,
+  <InventoryForm />,
   document.getElementById('content')
 );
